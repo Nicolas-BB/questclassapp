@@ -1,4 +1,5 @@
 import { Inter_400Regular } from "@expo-google-fonts/inter/400Regular";
+import { Inter_500Medium } from "@expo-google-fonts/inter/500Medium";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter/600SemiBold";
 import { Inter_700Bold } from "@expo-google-fonts/inter/700Bold";
 import { Inter_800ExtraBold } from "@expo-google-fonts/inter/800ExtraBold";
@@ -6,12 +7,13 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { colors } from "../../src/theme";
+import { colors } from "../theme";
 import { Stack } from "expo-router";
 
 export default function App() {
     const [fontsLoaded, fontError] = useFonts({
         Inter_400Regular,
+        Inter_500Medium,
         Inter_600SemiBold,
         Inter_700Bold,
         Inter_800ExtraBold,
@@ -23,20 +25,15 @@ export default function App() {
             {fontsLoaded || fontError ? (
                 <Stack
                     screenOptions={{
-                        headerStyle: { backgroundColor: colors.surface },
-                        headerTintColor: colors.text,
+                        headerShown: false,
                         contentStyle: { backgroundColor: colors.background },
                     }}
                 >
-                    <Stack.Screen
-                        name="index"
-                        options={{ headerShown: false }}
-                    />
+                    {/* The four tabs: Jornada, Missões, Taverna and Personagem */}
+                    <Stack.Screen name="(tabs)" />
 
-                    <Stack.Screen
-                        name="missao/[id].tsx"
-                        options={{ title: "Missão" }}
-                    />
+                    {/* Quest detail opens on top of the tabs */}
+                    <Stack.Screen name="missao/[id]" />
                 </Stack>
             ) : (
                 <View style={styles.loading}>
